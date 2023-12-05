@@ -1,6 +1,10 @@
-const allureWriter = require('@shelex/cypress-allure-plugin/writer');
-
 module.exports = (on, config) => {
-  allureWriter(on, config);
-  return config;
-};
+  on('task', {
+    dbQuery: query => require('cypress-postgres-10v-compatibility')(
+      query.query,
+      query.connection
+    )
+  })
+ 
+  return config
+}
